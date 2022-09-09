@@ -1,0 +1,24 @@
+﻿@model List<Employee>
+
+<div>
+    <h3>List of Employee</h3>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">FullName</th>
+      <th scope="col">Birth Date</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var item in @Model)
+     {
+         <tr>
+             <td>@item.Id</td>
+             <td>@item.Name</td>
+             <td>@item.BirthDate</td>
+         </tr>
+     }
+  </tbody>
+</table>
+</div>
