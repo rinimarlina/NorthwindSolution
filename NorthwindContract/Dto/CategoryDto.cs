@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Sdk;
 
-namespace NorthwindContracts.Dto
+namespace Northwind.Contracts.Dto
 {
     public class CategoryDto
     {

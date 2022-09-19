@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Northwind.Domain.Base;
 using Northwind.Persistence;
 using Northwind.Persistence.Base;
+using Northwind.Services;
+using Northwind.Services.Abstraction;
 using Northwind.Web.Repository;
 using System;
 using System.Collections.Generic;
@@ -35,6 +37,9 @@ namespace Northwind.Web
             //call interface & implementation
             services.AddScoped<IEmployee, EmployeeRepository>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();
+            services.AddScoped<IServiceManager, ServiceManager>();
+
+            services.AddAutoMapper(typeof(Startup));
             //register dbcontext
             services.AddDbContext<NorthwindContext>(opts =>
            {

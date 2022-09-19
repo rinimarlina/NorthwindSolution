@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Persistence", "No
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindContracts", "NorthwindContract\NorthwindContracts.csproj", "{79EA81FC-90E8-4BE9-AE05-048A92CCB5E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Services", "Northwind.Services\Northwind.Services.csproj", "{944094F1-C21D-41D6-9F17-12407D54A7CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Services", "Northwind.Services\Northwind.Services.csproj", "{944094F1-C21D-41D6-9F17-12407D54A7CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Services.Abstraction", "Northwind.Services.Abstraction\Northwind.Services.Abstraction.csproj", "{D0055CF5-C7EA-4820-8F43-936FDAAFE2BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Services.Abstraction", "Northwind.Services.Abstraction\Northwind.Services.Abstraction.csproj", "{D0055CF5-C7EA-4820-8F43-936FDAAFE2BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

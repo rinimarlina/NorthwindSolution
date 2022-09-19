@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NorthwindContracts.Dto.Category
+namespace Northwind.Services.Abstraction
 {
-    internal class CatergoryDto
+    public interface IServiceManager
     {
+        ICategoryService CategoryService { get; }
     }
 }

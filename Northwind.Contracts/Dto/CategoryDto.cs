@@ -2,22 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
+using Xunit.Sdk;
 
-namespace Northwind.Contracts.Dto
+namespace NorthwindContracts.Dto
 {
-    public class ProductDto
+    public class CategoryDto
     {
-        public long? productId { get; set; }
-        public string Name { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        [Required]
+        [StringLength(50, ErrorMessage = "Description cannot be longer than 50 characters")]
         public string Description { get; set; }
-        [Column(TypeName = "decimal(15,2")]
-        public decimal Price { get; set; }
         [Required(ErrorMessage = "Please select image")]
         public IFormFile FilePhoto { get; set; }
-        public int CategoryId { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Northwind.Contracts.Dto
+namespace NorthwindContracts.Dto
 {
     public class ProductDto
     {
