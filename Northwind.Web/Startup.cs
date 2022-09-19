@@ -1,12 +1,19 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Northwind.Domain.Base;
+using Northwind.Persistence;
+using Northwind.Persistence.Base;
 using Northwind.Web.Repository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +34,12 @@ namespace Northwind.Web
             services.AddControllersWithViews();
             //call interface & implementation
             services.AddScoped<IEmployee, EmployeeRepository>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+            //register dbcontext
+            services.AddDbContext<NorthwindContext>(opts =>
+           {
+               opts.UseSqlServer(Configuration["ConnectionStrings:NorthwindDb"]);
+           });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +58,13 @@ namespace Northwind.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            //set folder resources to static file
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -55,6 +75,8 @@ namespace Northwind.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //ShopeePopulateData.PopulateData(app);
         }
     }
 }
