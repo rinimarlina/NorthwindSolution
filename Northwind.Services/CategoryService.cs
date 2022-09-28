@@ -36,7 +36,7 @@ namespace Northwind.Services
             throw new NotImplementedException();
         }
 
-        public void Insert(CategoryForCreateDto categoryForCreateDto)
+        public void Insert(ProductForCreateDto categoryForCreateDto)
         {
             throw new NotImplementedException();
         }

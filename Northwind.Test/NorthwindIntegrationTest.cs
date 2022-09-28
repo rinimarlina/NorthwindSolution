@@ -36,7 +36,7 @@ namespace Northwind.Test
             SetupOptions();
         }
 
-        [Fact]
+        /*[Fact]
         public void TestCreateCategoryService()
         {
             using (var context = new NorthwindContext(optionsBuilder.Options))
@@ -44,7 +44,7 @@ namespace Northwind.Test
                 _repositoryManager = new RepositoryManager(context);
                 IServiceManager serviceManager = new ServiceManager(_repositoryManager, mapper);
 
-                var categoryDto = new CategoryForCreateDto
+                var categoryDto = new ProductForCreateDto
                 {
                     CategoryName = "Toys",
                     Description = "Mainan anak"
@@ -56,7 +56,7 @@ namespace Northwind.Test
                 category.ShouldNotBeNull();
                 category.Result.Count().ShouldBe(13);
             }
-        }
+        }*/
 
         [Fact]
         public void TestGetCategoryService()

@@ -10,7 +10,7 @@ using Xunit.Sdk;
 
 namespace Northwind.Contracts.Dto
 {
-    public class CategoryDto
+    public class CategoryDtoo
     {
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }

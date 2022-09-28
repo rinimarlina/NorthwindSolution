@@ -13,7 +13,7 @@ namespace Northwind.Services.Abstraction
 
         Task<CategoryDto> GetCategoryById(int categoryId, bool trackChanges);
 
-        void Insert(CategoryForCreateDto categoryForCreateDto);
+        void Insert(ProductForCreateDto categoryForCreateDto);
 
         void Edit(CategoryDto categoryDto);
 
