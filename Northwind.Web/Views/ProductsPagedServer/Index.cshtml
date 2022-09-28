@@ -33,9 +33,11 @@
     <thead>
         <tr>
             <th>
+                <a asp-action="Index" asp-route-sortorder="@ViewBag.ProductNameSort">Sort</a> |
                 @Html.DisplayNameFor(model => model.FirstOrDefault().ProductName)
             </th>
             <th>
+                <a asp-action="Index" asp-route-sortorder="@ViewBag.UnitPriceSort">Sort</a> |
                 @Html.DisplayNameFor(model => model.FirstOrDefault().UnitPrice)
             </th>
             <th>

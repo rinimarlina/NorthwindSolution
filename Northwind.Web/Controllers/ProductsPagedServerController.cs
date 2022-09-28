@@ -25,9 +25,9 @@ namespace Northwind.Web.Controllers
         }
 
         // GET: ProductsPagedServer
-        public async Task<IActionResult> Index(string searchString, 
-            string currentFilter, int? page, int? fethSize)
-        {     
+        public async Task<IActionResult> Index(string searchString,
+            string currentFilter, string sortOrder, int? page, int? fethSize)
+        {
             var pageIndex = page ?? 1;
             var pageSize = fethSize ?? 5;
 
@@ -42,8 +42,8 @@ namespace Northwind.Web.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
-            var productDtosSearch = 
-                await _serviceContext.ProductService.GetProductPaged(pageIndex,pageSize,false);
+            var productDtosSearch =
+                await _serviceContext.ProductService.GetProductPaged(pageIndex, pageSize, false);
 
             var totalRows = productDtosSearch.Count();
 
@@ -53,8 +53,32 @@ namespace Northwind.Web.Controllers
                 productDtosSearch = productDtosSearch.Where(p => p.ProductName.ToLower().Contains(searchString.ToLower()));
             }
 
+            //sorting
+            ViewBag.ProductNameSort = String.IsNullOrEmpty(sortOrder) ? "product_name" : "";
+            ViewBag.UnitPriceSort = sortOrder == "price" ? "unit_price" : "price";
+
+            var productDtosSort = from p in productDtosSearch
+                                  select p;
+
+            switch (sortOrder)
+            {
+                case "product_name":
+                    productDtosSort = productDtosSearch.OrderByDescending(p => p.ProductName);
+                    break;
+                case "price":
+                    productDtosSort = productDtosSearch.OrderBy(p => p.UnitPrice);
+                    break;
+                case "unitPrice":
+                    productDtosSort = productDtosSearch.OrderByDescending(p => p.UnitPrice);
+                    break;
+                default:
+                    productDtosSort = productDtosSearch.OrderBy(p => p.ProductName);
+                    break;
+
+            }
+
             var productDtosPaged =
-                new StaticPagedList<ProductDto>(productDtosSearch, pageIndex, pageSize - (pageSize - 1), totalRows);
+                new StaticPagedList<ProductDto>(productDtosSort, pageIndex, pageSize - (pageSize - 1), totalRows);
 
             ViewBag.PagedList = new SelectList(new List<int> { 8, 15, 20 });
 
