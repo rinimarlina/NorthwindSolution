@@ -50,6 +50,8 @@ namespace Northwind.Persistence
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Territory> Territories { get; set; }
 
+        public virtual DbSet<ProductPhoto> ProductPhotos { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -843,8 +845,28 @@ namespace Northwind.Persistence
                     .HasConstraintName("FK_Territories_Region");
             });
 
+            modelBuilder.Entity<ProductPhoto>(entity =>
+            {
+                entity.HasKey(e => e.PhotoId)
+                    .HasName("PK_ProductPhotoId");
+
+                entity.Property(e => e.PhotoFileType)
+                    .HasMaxLength(55)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PhotoFilename)
+                    .HasMaxLength(55)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.PhotoProduct)
+                    .WithMany(p => p.ProductPhotos)
+                    .HasForeignKey(d => d.PhotoProductId)
+                    .HasConstraintName("FK_ProductPhotoIdProduct");
+            });
             OnModelCreatingPartial(modelBuilder);
         }
+
+
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

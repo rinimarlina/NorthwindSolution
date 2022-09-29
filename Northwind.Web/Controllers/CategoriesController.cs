@@ -57,7 +57,8 @@ namespace Northwind.Web.Controllers
         //properties you want to bind to.
          // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForge
+ryToken]
         public async Task<IActionResult> Create(CategoryDto categoryDto)
         {
             if (ModelState.IsValid)

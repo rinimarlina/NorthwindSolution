@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NorthwindContracts.Dto.Product;
 using Northwind.Domain.Models;
+using NorthwindContracts.Dto.Category;
 
 namespace Northwind.Services
 {
@@ -14,10 +15,21 @@ namespace Northwind.Services
         private IRepositoryManager _repositoryManager;
         private readonly IMapper _mapper;
 
+        // dependency injection
         public ProductService(IRepositoryManager repositoryManager, IMapper mapper)
         {
             _repositoryManager = repositoryManager;
             _mapper = mapper;
+        }
+
+        public ProductDto CreateProductId(ProductForCreateDto productForCreateDto)
+        {
+            var productModel = _mapper.Map<Product>(productForCreateDto);
+            _repositoryManager.ProductRepository.Insert(productModel);
+            _repositoryManager.Save();
+
+            var productDto = _mapper.Map<ProductDto>(productModel);
+            return productDto;
         }
 
         public void Edit(ProductDto productDto)
@@ -43,18 +55,41 @@ namespace Northwind.Services
 
         public async Task<IEnumerable<ProductDto>> GetProductPaged(int pageIndex, int pageSize, bool trackChanges)
         {
-            var productModel = await _repositoryManager
-                .ProductRepository.GetProductPaged(pageIndex,pageSize,trackChanges);
+            var productModel = await _repositoryManager.ProductRepository.GetProductPaged(pageIndex,pageSize,trackChanges);
 
             var productDto = _mapper.Map<IEnumerable<ProductDto>>(productModel);
             return productDto;
         }
 
-        
+        public void Insert(ProductForCreateDto productForCreateDto)
+        {
+            var insert = _mapper.Map<Product>(productForCreateDto);
+            _repositoryManager.ProductRepository.Insert(insert);
+            _repositoryManager.Save();
+        }
 
         public void Remove(ProductDto productDto)
         {
-            throw new NotImplementedException();
+            var remove = _mapper.Map<Product>(productDto);
+            _repositoryManager.ProductRepository.Remove(remove);
+            _repositoryManager.Save();
+        }
+
+        public void CreateProductManyPhoto(ProductForCreateDto productForCreateDto, List<ProductPhotoCreateDto> productPhotoCreateDtos)
+        {
+            // 1. Insert into table product
+            var productModel = _mapper.Map<Product>(productForCreateDto);
+            _repositoryManager.ProductRepository.Insert(productModel);
+            _repositoryManager.Save();
+
+            // insert into table productPhotos
+            foreach (var item in productPhotoCreateDtos)
+            {
+                item.PhotoProductId = productModel.ProductId;
+                var photoModel = _mapper.Map<ProductPhoto>(item);
+                _repositoryManager.ProductPhotoRepository.Insert(photoModel);
+            }
+            _repositoryManager.Save();
         }
     }
 }
