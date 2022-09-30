@@ -13,6 +13,7 @@ namespace Northwind.Domain.Base
         ICustomerRepository CustomerRepository { get; }
         IProductRepository ProductRepository { get; }
         IProductPhotoRepository ProductPhotoRepository { get; }
+        ISupplierRepository SupplierRepository { get; }
         void Save();
         Task SaveAsync();
     }

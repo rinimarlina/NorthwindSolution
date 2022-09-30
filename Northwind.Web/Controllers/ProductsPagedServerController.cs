@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -130,6 +131,7 @@ namespace Northwind.Web.Controllers
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName");
+            ViewData["PhotoProductId"] = new SelectList(_context.ProductPhotos, "PhotoProductId");
             return View("Create");
         }
         // GET: ProductsPagedServer/Details/5
@@ -142,7 +144,7 @@ namespace Northwind.Web.Controllers
 
             var product = await _context.Products
                 .Include(p => p.Category)
-                //.Include(p => p.Supplier)
+                .Include(p => p.Supplier)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
@@ -176,25 +178,38 @@ namespace Northwind.Web.Controllers
             }
             var allCategory = await _serviceContext.CategoryService.GetAllCategory(false);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            //ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
             return View(product);
         }
 
         // GET: ProductsPagedServer/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, IFormFile filePhoto)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _serviceContext.ProductService.GetProductById((int)id, true);
             if (product == null)
             {
                 return NotFound();
             }
+
+            if (filePhoto == null)
+            {
+                return NotFound();
+            }
+
+            var productPhoto = await _serviceContext.ProductPhotoService.GetProductPhotoById((int)id, true);
+            if (productPhoto == null)
+            {
+                return NotFound();
+            }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            //ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
+
+
             return View(product);
         }
 
@@ -231,7 +246,7 @@ namespace Northwind.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            //ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
             return View(product);
         }
 

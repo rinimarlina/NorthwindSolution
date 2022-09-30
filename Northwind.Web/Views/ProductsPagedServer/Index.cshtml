@@ -44,11 +44,13 @@
                 @Html.DisplayNameFor(model => model.FirstOrDefault().UnitsInStock)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().UnitsOnOrder)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Category.CategoryName)            
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().Category.CategoryName)
-              
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Supplier.CompanyName)            
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ProductPhotoGroup.AllPhoto)            
             </th>
             <th></th>
         </tr>
@@ -66,10 +68,16 @@
                 @Html.DisplayFor(modelItem => item.UnitsInStock)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UnitsOnOrder)
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.ProductPhotoGroup.AllPhoto)
+            </td>*@
+            <td>
+                <img src="~/Images/@item.ProductPhotoGroup" style="width:100px;height:100px" asp-append-version="true"/>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |

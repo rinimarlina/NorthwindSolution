@@ -26,6 +26,8 @@ namespace Northwind.Persistence.Repositories
             return await FindAll(trackChanges)
                 .OrderBy(p => p.ProductId)
                 .Include(c => c.Category)
+                .Include(s => s.Supplier)
+                .Include(a => a.ProductPhotos)
                 .ToListAsync();
         }
 
@@ -34,6 +36,8 @@ namespace Northwind.Persistence.Repositories
         {
             return await FindByCondition(p => p.ProductId.Equals(productId), trackChanges)
                 .Include(c => c.Category)
+                .Include(s => s.Supplier)
+                .Include(a => a.ProductPhotos)
                 .SingleOrDefaultAsync();
         }
 
@@ -42,6 +46,8 @@ namespace Northwind.Persistence.Repositories
             return await FindAll(trackChanges)
                 .OrderBy(p => p.ProductId)
                 .Include(c => c.Category)
+                .Include(s => s.Supplier)
+                .Include(a => a.ProductPhotos)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
