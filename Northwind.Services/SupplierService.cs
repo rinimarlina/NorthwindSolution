@@ -36,7 +36,7 @@ namespace Northwind.Services
             return supplierDto;
         }
 
-        public async Task<SupplierDto> GetCategoryById(int supplierId, bool trackChanges)
+        public async Task<SupplierDto> GetSupplierById(int supplierId, bool trackChanges)
         {
             var supplierModel = await _repositoryManager.SupplierRepository.GetSupplierById(supplierId, trackChanges);
             var supplierDto = _mapper.Map<SupplierDto>(supplierModel);

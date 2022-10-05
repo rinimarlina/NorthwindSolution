@@ -16,27 +16,27 @@
             @Html.TextBox("ProductForCreateDto.ProductName",string.Empty,new{@placeholder="Product Name", @class="form-control"})
             @Html.ValidationMessage("ProductForCreateDto.ProductName", new{@class="text-danger"})
         </div>
-        <div class="col-md-10">
+        <div class="col-6 col-sm-6">
             @Html.LabelFor(model => model.ProductForCreateDto.CategoryId, htmlAttributes: new{@class ="form-label"})
             @Html.DropDownList("ProductForCreateDto.CategoryId",ViewBag.CategoryId,String.Empty,new{@placeholder="Category Name", @class="form-control"})
             
         </div>
-        <div class="col-md-10">
+        <div class="col-6 col-sm-6">
             @Html.LabelFor(model => model.ProductForCreateDto.SupplierId, htmlAttributes: new{@class ="form-label"})
             @Html.DropDownList("ProductForCreateDto.SupplierId",ViewBag.SupplierId,String.Empty,new{@placeholder="Supplier Name", @class="form-control"})
             @Html.ValidationMessage("ProductForCreateDto.SupplierId",new {@class="text-danger"})
             </div>
-        <div class="col-md-10">
+        <div class="col-6 col-sm-6">
             @Html.LabelFor(model => model.ProductForCreateDto.UnitsInStock, htmlAttributes: new{@class ="form-label"})
             @Html.TextBox("ProductForCreateDto.UnitsInStock",string.Empty,new{@placeholder="UnitsInStock", @class="form-control"})
             @Html.ValidationMessage("ProductForCreateDto.UnitsInStock",new {@class="text-danger"})
         </div>
-        <div class="col-md-10">
+        <div class="col-6 col-sm-6">
             @Html.LabelFor(model => model.ProductForCreateDto.UnitPrice, htmlAttributes: new{@class ="form-label"})
             @Html.TextBox("ProductForCreateDto.UnitPrice",string.Empty,new{@placeholder="UnitPrice", @class="form-control"})
             @Html.ValidationMessage("ProductForCreateDto.UnitPrice",new {@class="text-danger"})
         </div>
-        <div class="col-md-10">
+        <div class="col-6 col-sm-6">
             @Html.LabelFor(model => model.ProductForCreateDto.Discontinued, htmlAttributes: new{@class ="form-label"})
             @Html.CheckBox("ProductForCreateDto.Discontinued",false,new{@placeholder="Discontinued", @class="form-check-box"})
             @Html.ValidationMessage("ProductForCreateDto.Discontinued",new {@class="text-danger"})
@@ -67,6 +67,7 @@
           </div>
         </div>
     </div>
+    
 
     <button type="submit" class="btn-primary">Create</button>
 }

@@ -11,7 +11,7 @@ namespace Northwind.Services.Abstraction
     {
         Task<IEnumerable<SupplierDto>> GetAllSupplier(bool trackChanges);
 
-        Task<SupplierDto> GetCategoryById(int supplierId, bool trackChanges);
+        Task<SupplierDto> GetSupplierById(int supplierId, bool trackChanges);
 
         void Insert(SupplierForCreateDto supplierForCreateDto);
 

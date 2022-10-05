@@ -1,0 +1,26 @@
+﻿@model IEnumerable<NorthwindContracts.Dto.Product.ProductDto>
+
+
+<h4 class="text-capitalize">Product On Sale</h4>
+
+@foreach(var item in Model)
+{
+<div class="col-md-6 col-xl-4">
+    <a asp-action="Details" asp-route-id="@item.ProductId">
+    <div class="card mb-3">
+      <img class="card-img-top" src="@Url.Content("../Resources/Images/" + item.ProductPhotos.FirstOrDefault().PhotoFilename)" alt="Card image cap">
+          <div class="card text-center">
+            <div class="card-body">
+            <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</h5>
+            <br>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().UnitPrice) :
+            @Html.DisplayFor(modelItem => item.UnitPrice)
+            <br>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Category.CategoryName) :
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+      </div>
+    </div>
+    </div>
+    </a>
+    </div>
+}

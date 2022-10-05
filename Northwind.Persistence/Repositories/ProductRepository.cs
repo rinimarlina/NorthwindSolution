@@ -41,6 +41,29 @@ namespace Northwind.Persistence.Repositories
                 .SingleOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Product>> GetProductOnSale(bool trackChanges)
+        {
+            var products = await _dbContext.Products
+                .Where(x => x.ProductPhotos
+                .Any(y => y.PhotoProductId == x.ProductId))
+                .Include(p => p.ProductPhotos)
+                .ToListAsync();
+            /*var products = await FindAll(trackChanges)
+                .Include(x => x.ProductPhotos.SingleOrDefault())
+                .ToListAsync();*/
+            return products;
+        }
+
+        public async Task<Product> GetProductOnSaleById(int productOnSaleId, bool trackChanges)
+        {
+            var productOnSale = await FindByCondition (p => p.ProductId.Equals(productOnSaleId), trackChanges)
+                .Where(x => x.ProductPhotos
+                .Any(y => y.PhotoProductId == productOnSaleId))
+                .Include(p => p.ProductPhotos)
+                .SingleOrDefaultAsync();
+            return productOnSale;
+        }
+
         public async Task<IEnumerable<Product>> GetProductPaged(int pageIndex, int pageSize, bool trackChanges)
         {
             return await FindAll(trackChanges)
@@ -51,6 +74,18 @@ namespace Northwind.Persistence.Repositories
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+        }
+
+        public async Task<Product>GetProductOrderOnSaleById(int productOrderOnSaleId, bool trackChanges)
+        {
+            var products = await FindByCondition(x => x.ProductId.Equals(productOrderOnSaleId), trackChanges)
+                .Where(y => y.ProductPhotos.Any(p => p.PhotoProductId == productOrderOnSaleId))
+                .Include(c => c.Category)
+                .Include(s => s.Supplier)
+                .Include(o => o.OrderDetails)
+                .Include(a => a.ProductPhotos)
+                .SingleOrDefaultAsync();
+            return products;
         }
 
         public void Insert(Product product)

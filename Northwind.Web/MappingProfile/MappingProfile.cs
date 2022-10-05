@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Northwind.Domain.Models;
 using NorthwindContracts.Dto.Category;
+using NorthwindContracts.Dto.Order;
+using NorthwindContracts.Dto.OrderDetail;
 using NorthwindContracts.Dto.Product;
 using NorthwindContracts.Dto.Supplier;
 
@@ -21,6 +23,16 @@ namespace Northwind.Web.MappingProfile
 
             CreateMap<ProductPhoto, ProductPhotoDto>().ReverseMap();
             CreateMap<ProductPhoto, ProductPhotoCreateDto>().ReverseMap();
+            CreateMap<ProductPhoto, ProductPhotoGroupDto>().ReverseMap();
+
+            CreateMap<Order, OrderDto>().ReverseMap();
+            CreateMap<Order, OrderForCreateDto>().ReverseMap();
+
+            CreateMap<OrderDetail, OrderDetailDto>().ReverseMap();
+            CreateMap<OrderDetail, OrderDetailForCreateDto>().ReverseMap();
+
+
+
 
         }
     }
