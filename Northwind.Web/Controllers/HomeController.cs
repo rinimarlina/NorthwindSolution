@@ -18,6 +18,7 @@ namespace Northwind.Web.Controllers
             _logger = logger;
         } 
 
+        
         public IActionResult Index()
         {
             var myName = "Rini Marlina";

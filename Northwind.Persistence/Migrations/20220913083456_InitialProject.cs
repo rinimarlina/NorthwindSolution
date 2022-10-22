@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿/*using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Northwind.Persistence.Migrations
 {
@@ -60,3 +60,4 @@ namespace Northwind.Persistence.Migrations
         }
     }
 }
+*/

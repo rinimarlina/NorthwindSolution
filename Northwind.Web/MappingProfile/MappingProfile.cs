@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Northwind.Domain.Models;
+using NorthwindContracts.Dto.Authentication;
 using NorthwindContracts.Dto.Category;
 using NorthwindContracts.Dto.Order;
 using NorthwindContracts.Dto.OrderDetail;
@@ -31,9 +32,10 @@ namespace Northwind.Web.MappingProfile
             CreateMap<OrderDetail, OrderDetailDto>().ReverseMap();
             CreateMap<OrderDetail, OrderDetailForCreateDto>().ReverseMap();
 
+            CreateMap<UserRegistrationDto, User>()
+                .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
 
-
-
+            CreateMap<UserLoginDto, User>().ReverseMap();
         }
     }
 }
